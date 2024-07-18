@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    //DaggerHilt
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
@@ -9,12 +10,19 @@ android {
     namespace = "com.alebrije_estudios.metabolique"
     compileSdk = 34
 
+    //Configure Languages
+    androidResources{
+        generateLocaleConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.alebrije_estudios.metabolique"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        //Configure Languages
+        resourceConfigurations.plus(listOf("en_US","es"))
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -70,7 +78,10 @@ dependencies {
     implementation(libs.converter.gson)
     //DaggerHilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.appcompat)
     kapt(libs.hilt.android.compiler)
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
     //Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

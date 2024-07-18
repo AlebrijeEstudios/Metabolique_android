@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Metabolique</string>
+
+    <!--  Login Screeen  -->
+    <string name="button_create_account">CREAR CUENTA</string>
+    <string name="button_recovery_account">¿Olvidaste tu contraseña?</string>
+    <string name="text_message_new_user">¿Aún no tienes una Cuenta? Crea una de manera gratuita</string>
+    <string name="label_email">Correo Electronico</string>
+    <string name="label_password">Contraseña</string>
+    <string name="button_sign_in">INICIAR SESIÓN</string>
+    <string name="content_description_show_icon">boton de mostrar contraseña</string>
+    <string name="content_description_logo">Logo de Metabolique</string>
+    <string name="title_recovery_account">Recuperar Cuenta</string>
+    <string name="text_message_recobery_account">Si olvidaste tu contraseña, ingresa el correo electrónico con el que iniciaste sesión y te enviaremosuna liga a tu para restablecerla.
+
+        En dado caso de que tampoco recuerdes tu correo electrónico, ponte en contacto con tu administrador para que te apoye en el proceso.</string>
+    <string name="button_submit">ENVIAR</string>
+    <string name="title_create_account">Crear Cuenta</string>
+    <string name="label_name">Nombre</string>
+    <string name="label_confirm_password">Confirmar Contraseña</string>
+    <string name="text_message_restrictions_password">Recuerda que la contraseña debe contar con al menos 8 caracteres</string>
+</resources>

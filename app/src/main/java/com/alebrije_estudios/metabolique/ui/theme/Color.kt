@@ -1,8 +1,9 @@
 package com.alebrije_estudios.metabolique.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+
 import androidx.compose.ui.graphics.Color
 
+val PrimaryColor = Color(0XFFBAC84C)
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

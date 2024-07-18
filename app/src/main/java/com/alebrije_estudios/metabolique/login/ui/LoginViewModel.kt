@@ -1,12 +1,10 @@
 package com.alebrije_estudios.metabolique.login.ui
 
 import android.util.Patterns
-import androidx.compose.ui.text.Paragraph
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,14 +27,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
     private fun isValidUserLogin():Boolean{
         return _email.value?.isNotBlank() == true && Patterns.EMAIL_ADDRESS.matcher(_email.value!!).matches() &&
-                _password.value?.isNotBlank() == true && _password.value?.length!! > 8
+                _password.value?.isNotBlank() == true && _password.value?.length!! >= 8
     }
 
-    fun Login() {
+    fun login() {
         // TODO: Implement login logic here.
     }
 
-    fun recoverAccount() {
-        TODO("Not yet implemented")
-    }
 }
