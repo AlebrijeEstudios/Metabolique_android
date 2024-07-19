@@ -2,6 +2,7 @@ package com.alebrije_estudios.metabolique
 
 import android.app.LocaleManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.LocaleList
@@ -10,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.intl.Locale
 import androidx.core.os.LocaleListCompat
@@ -22,8 +24,8 @@ import com.alebrije_estudios.metabolique.register_account.ui.RegisterAccountView
 import com.alebrije_estudios.metabolique.ui.theme.MetaboliqueTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-val EMAIL = "ayuda@vidasana.com"
-val PHONE = "+52(81) 1234 5678"
+const val EMAIL = "ayuda@vidasana.com"
+const val PHONE = "+52(81) 1234 5678"
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,7 +39,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             localeSelection(LocalContext.current, Locale("es").toLanguageTag())
-            MetaboliqueTheme (false,false){
+            window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
+            MetaboliqueTheme (darkTheme = false, dynamicColor = false){
                 MainScreen(
                     viewModel = mainViewModel,
                     loginViewModel = loginViewModel,

@@ -11,13 +11,29 @@
     <string name="button_sign_in">INICIAR SESIÓN</string>
     <string name="content_description_show_icon">boton de mostrar contraseña</string>
     <string name="content_description_logo">Logo de Metabolique</string>
+
+<!--  Recovery Account Screen  -->
     <string name="title_recovery_account">Recuperar Cuenta</string>
     <string name="text_message_recobery_account">Si olvidaste tu contraseña, ingresa el correo electrónico con el que iniciaste sesión y te enviaremosuna liga a tu para restablecerla.
 
         En dado caso de que tampoco recuerdes tu correo electrónico, ponte en contacto con tu administrador para que te apoye en el proceso.</string>
     <string name="button_submit">ENVIAR</string>
+
+<!--    Register Account Screen-->
     <string name="title_create_account">Crear Cuenta</string>
     <string name="label_name">Nombre</string>
     <string name="label_confirm_password">Confirmar Contraseña</string>
     <string name="text_message_restrictions_password">Recuerda que la contraseña debe contar con al menos 8 caracteres</string>
+
+<!--    My Profile Screen-->
+    <string name="title_my_profile">Mi Perfil</string>
+    <string name="label_date_birth">Fecha de Nacimiento</string>
+    <string name="label_gender">Genero</string>
+    <string name="label_stature">Estatura</string>
+    <string name="label_protocol">Protocolo</string>
+    <string name="button_save_change">Guardar Cambios</string>
+    <string name="text_gender_male">Masculino</string>
+    <string name="text_gender_female">Femenino</string>
+    <string name="text_gender_none">Ninguno</string>
+    <string name="label_confirm">Confirmar</string>
 </resources>

@@ -17,4 +17,14 @@
     <string name="label_name">Name</string>
     <string name="label_confirm_password">Confirm Password</string>
     <string name="text_message_restrictions_password">Remember that the password must be at least 8 characters long</string>
+    <string name="title_my_profile">My Profile</string>
+    <string name="label_date_birth">Date of Birth</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_stature">Stature</string>
+    <string name="label_protocol">Protocol</string>
+    <string name="button_save_change">Save Changes</string>
+    <string name="text_gender_male">Male</string>
+    <string name="text_gender_female">Female</string>
+    <string name="text_gender_none">None</string>
+    <string name="label_confirm">Confirm</string>
 </resources>

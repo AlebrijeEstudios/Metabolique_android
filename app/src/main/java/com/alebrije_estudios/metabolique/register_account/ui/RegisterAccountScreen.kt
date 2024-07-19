@@ -3,11 +3,8 @@ package com.alebrije_estudios.metabolique.register_account.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,15 +12,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alebrije_estudios.metabolique.R
+import com.alebrije_estudios.metabolique.composable.DefaultButton
+import com.alebrije_estudios.metabolique.composable.DefaultTextField
 import com.alebrije_estudios.metabolique.login.ui.PasswordField
 import com.alebrije_estudios.metabolique.login.ui.EmailField
 import com.alebrije_estudios.metabolique.login.ui.HeaderLogo
-import com.alebrije_estudios.metabolique.navegation.Screen
 
 @Preview(showBackground = true, locale = "es")
 @Composable
@@ -58,22 +57,25 @@ fun RegisterAccountScreen(
             viewModel.onValidated(name, email, it, confirmPassword)
         }
         Spacer(modifier = Modifier.size(16.dp))
-        PasswordField(password = confirmPassword, stringResource(id = R.string.label_confirm_password)) {
+        PasswordField(password = confirmPassword, imeAction = ImeAction.Done, label = stringResource(id = R.string.label_confirm_password)) {
             viewModel.onValidated(name, email, password, it)
         }
         Spacer(modifier = Modifier.size(32.dp))
         RestrictText()
         Spacer(modifier = Modifier.size(32.dp))
         CreateAccountButton(isEnabled = isEnabled){
-            navController.navigate(Screen.MyProfile.route)
+           viewModel.onSubmit(navController)
         }
     }
 }
 
 @Composable
 fun CreateAccountButton(isEnabled: Boolean, onClicked:() -> Unit) {
-    Button(modifier = Modifier.fillMaxWidth(), onClick = {onClicked()}, enabled = isEnabled){
-        Text(stringResource(id = R.string.button_create_account))
+    DefaultButton(
+        label = stringResource(id = R.string.button_create_account),
+        enabled = isEnabled
+    ) {
+        onClicked()
     }
 }
 
@@ -85,11 +87,7 @@ fun RestrictText() {
 
 @Composable
 fun NameField(name: String, onChangeText: (String) -> Unit) {
-    OutlinedTextField(
-        value = name,
-        modifier = Modifier.fillMaxWidth(),
-        onValueChange = { onChangeText(it) },
-        label = {
-            Text(text = stringResource(id = R.string.label_name))
-        })
+    DefaultTextField(value = name, label = stringResource(id = R.string.label_name )){
+        onChangeText(it)
+    }
 }

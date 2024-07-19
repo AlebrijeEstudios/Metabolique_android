@@ -50,14 +50,15 @@ fun MainScreen(
     val navController = rememberNavController()
     Scaffold(
         topBar = {
-            Box{
-            GradientBox(Modifier.align(Alignment.TopStart))
-            if (showTopBar)
-                TopBar(showBackArrow =showBackArrow, title= title) {
-                    navController.popBackStack()
-                }
+            Box {
+                GradientBox(Modifier.align(Alignment.TopStart))
+                if (showTopBar)
+                    TopBar(showBackArrow = showBackArrow, title = title) {
+                        navController.popBackStack()
+                    }
             }
         },
+        containerColor = Color.White,
         snackbarHost = {
             if (showNavbar)
                 TODO()
@@ -72,6 +73,8 @@ fun MainScreen(
             ) {
                 composable(Screen.Login.route) {
                     viewModel.showViews(TopBarShow.HIDE_ALL)
+                    myProfileViewModel.void()
+                    registerAccountViewModel.void()
                     LoginScreen(loginViewModel, navController = navController)
                 }
                 composable(Screen.RecoverUser.route) {
@@ -87,13 +90,19 @@ fun MainScreen(
                         navController = navController
                     )
                 }
-                composable(Screen.MyProfile.route) {
+                composable(Screen.MyProfile.route) { backStackEntry ->
                     viewModel.showViews(TopBarShow.SHOW_BACK_BUTTON)
-                    MyProfileScreen(viewModel = myProfileViewModel)
-                    // MyProfileScreen
+                    MyProfileScreen(
+                        viewModel = myProfileViewModel,
+                        name = backStackEntry.arguments?.getString("name")?:"",
+                        email = backStackEntry.arguments?.getString("email")?:"",
+                        navController
+                    )
                 }
                 composable(Screen.Dashboard.route) {
                     viewModel.showViews(TopBarShow.SHOW_NAR_BAR_TITLE)
+                    myProfileViewModel.void()
+                    registerAccountViewModel.void()
                     // DashboardScreen
                 }
             }

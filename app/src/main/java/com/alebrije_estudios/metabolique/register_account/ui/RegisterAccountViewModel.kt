@@ -4,6 +4,8 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.alebrije_estudios.metabolique.navegation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -35,7 +37,14 @@ class RegisterAccountViewModel @Inject constructor(): ViewModel() {
     }
 
 
-    fun onSubmit() {
-        TODO("Not yet implemented")
+    fun onSubmit(navController: NavController) {
+        navController.navigate(Screen.MyProfile.route.replace("{name}",_name.value?:"").replace("{email}",_email.value?:""))
+    }
+
+    fun void() {
+        _name.value = ""
+        _email.value = ""
+        _password.value = ""
+        _confirmPassword.value = ""
     }
 }

@@ -5,6 +5,6 @@ sealed class Screen(val route:String) {
     object Dashboard : Screen("/dashboard")
     object CreateUser: Screen("/createUser")
     object RecoverUser: Screen("/recoverUser")
-    object MyProfile: Screen("/myProfile")
+    object MyProfile: Screen("/myProfile/{email}/{name}")
 
 }

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.alebrije_estudios.metabolique.EMAIL
 import com.alebrije_estudios.metabolique.PHONE
 import com.alebrije_estudios.metabolique.R
+import com.alebrije_estudios.metabolique.composable.DefaultButton
 import com.alebrije_estudios.metabolique.login.ui.EmailField
 
 @Preview(showBackground = true, locale= "es")
@@ -62,7 +62,7 @@ fun RecoveryAccountScreen(
 
 @Composable
 fun Submit(isEnabled: Boolean, onClicked: () -> Unit){
-    OutlinedButton(modifier = Modifier.fillMaxWidth(),enabled = isEnabled, onClick = { onClicked() }) {
-        Text(stringResource(id = R.string.button_submit))
+    DefaultButton(label = stringResource(id = R.string.button_submit), enabled = isEnabled) {
+        onClicked()
     }
 }
