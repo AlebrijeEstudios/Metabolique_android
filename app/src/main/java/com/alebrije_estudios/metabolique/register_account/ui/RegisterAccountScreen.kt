@@ -3,6 +3,7 @@ package com.alebrije_estudios.metabolique.register_account.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -18,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alebrije_estudios.metabolique.R
-import com.alebrije_estudios.metabolique.composable.DefaultButton
-import com.alebrije_estudios.metabolique.composable.DefaultTextField
+import com.alebrije_estudios.metabolique.ui.DefaultButton
+import com.alebrije_estudios.metabolique.ui.DefaultTextField
 import com.alebrije_estudios.metabolique.login.ui.PasswordField
 import com.alebrije_estudios.metabolique.login.ui.EmailField
 import com.alebrije_estudios.metabolique.login.ui.HeaderLogo
@@ -42,7 +43,7 @@ fun RegisterAccountScreen(
     val confirmPassword: String by viewModel.confirmPassword.observeAsState("")
     val isEnabled: Boolean by viewModel.isEnabled.observeAsState(false)
     Column(modifier = Modifier
-        .fillMaxSize()
+        .fillMaxWidth()
         .padding(horizontal = 16.dp)) {
         HeaderLogo(modifier = Modifier.align(Alignment.CenterHorizontally))
         NameField(name = name) {

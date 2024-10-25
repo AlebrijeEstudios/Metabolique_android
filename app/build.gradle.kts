@@ -42,6 +42,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        //Configure Date
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -68,6 +70,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    //implementation(libs.androidx.material)
     //IconsLibrary
     implementation(libs.androidx.material.icons.extended)
     //Livedata
@@ -79,9 +82,24 @@ dependencies {
     //DaggerHilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
+    implementation(libs.places)
     kapt(libs.hilt.android.compiler)
     //Navigation
     implementation(libs.androidx.navigation.compose)
+    //Desugaring for date
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    //SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+    //Using in carousel card slider
+    implementation(libs.androidx.ui.util)
+    //download images with coil
+    implementation(libs.coil.compose)
+    //graphics library
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m2)
+    implementation(libs.vico.compose.m3)
+    implementation(libs.vico.core)
+    implementation(libs.vico.views)
     //Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

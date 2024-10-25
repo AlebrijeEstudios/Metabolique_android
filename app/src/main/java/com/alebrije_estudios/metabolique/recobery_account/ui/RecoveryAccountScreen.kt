@@ -14,13 +14,19 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.alebrije_estudios.metabolique.EMAIL
 import com.alebrije_estudios.metabolique.PHONE
 import com.alebrije_estudios.metabolique.R
-import com.alebrije_estudios.metabolique.composable.DefaultButton
+import com.alebrije_estudios.metabolique.ui.DefaultButton
 import com.alebrije_estudios.metabolique.login.ui.EmailField
+import com.alebrije_estudios.metabolique.ui.theme.Lexend
+import com.alebrije_estudios.metabolique.ui.theme.TextColor
+import com.alebrije_estudios.metabolique.ui.theme.Typography
 
 @Preview(showBackground = true, locale= "es")
 @Composable
@@ -45,16 +51,26 @@ fun RecoveryAccountScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(stringResource(id = R.string.text_message_recobery_account))
+            Text(
+                text = stringResource(id = R.string.text_message_recobery_account),
+                style = Typography.bodyMedium,
+                textAlign = TextAlign.Center
+                )
             Spacer(modifier = Modifier.size(64.dp))
-            EmailField(email = email) {
+            EmailField(email = email, imeAction = ImeAction.Done) {
                 recoveryAccountViewModel.onValidatedEmail(it)
             }
             Spacer(modifier = Modifier.size(16.dp))
             Submit(isEnabled){}
             Spacer(modifier = Modifier.size(128.dp))
-            Text(EMAIL)
-            Text(PHONE)
+            Text(
+                text = EMAIL,
+                style = Typography.bodyMedium,
+                )
+            Text(
+                text = PHONE,
+                style = Typography.bodyMedium
+                )
         }
     }
 }

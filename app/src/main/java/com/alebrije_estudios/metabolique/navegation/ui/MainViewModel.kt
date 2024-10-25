@@ -19,7 +19,6 @@ enum class TopBarShow {
 
 @HiltViewModel
 class MainViewModel @Inject constructor(): ViewModel() {
-
     private val _showBackArrow:MutableLiveData<Boolean> = MutableLiveData()
     val showBackArrow: LiveData<Boolean> = _showBackArrow
     private val _showTopBar:MutableLiveData<Boolean> = MutableLiveData()
