@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.alebrije_estudios.metabolique"
-    compileSdk = 34
+    compileSdk = 35
 
     //Configure Languages
     androidResources{
@@ -18,7 +18,7 @@ android {
     defaultConfig {
         applicationId = "com.alebrije_estudios.metabolique"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         //Configure Languages
@@ -100,6 +100,9 @@ dependencies {
     implementation(libs.vico.compose.m3)
     implementation(libs.vico.core)
     implementation(libs.vico.views)
+
+    //permission
+    implementation(libs.accompanist.permissions)
     //Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,7 @@ class LoginActivity : ComponentActivity() {
         private val loginViewModel: LoginViewModel by viewModels() // add LoginViewModel
         private val registerAccountViewModel: RegisterAccountViewModel by viewModels() // add RegisterAccount
         private val myProfileViewModel: MyProfileViewModel by viewModels() // add MyProfile
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             enableEdgeToEdge()

@@ -153,7 +153,7 @@ fun DashboardNavigation(
                 }
                 composable(Screen.CapturedFood.route) {
                     viewModel.showViews(TopBarShow.SHOW_ALL)
-                    FoodCaptureScreen(viewModel = foodCaptureViewModel)
+                    FoodCaptureScreen(viewModel = foodCaptureViewModel,date = feedViewModel.date.value!!)
                 }
                 composable(Screen.Exercises.route) {
                     viewModel.showViews(TopBarShow.SHOW_NAR_BAR_TITLE)

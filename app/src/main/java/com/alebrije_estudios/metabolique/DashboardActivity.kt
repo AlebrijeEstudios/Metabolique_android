@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.platform.LocalContext
@@ -38,7 +39,7 @@ class DashboardActivity : ComponentActivity() {
         private val habitViewModel: HabitViewModel by viewModels() // add
         private val dashboardViewModel: DashboardViewModel by viewModels() // add DashboardViewModel
         private val foodCaptureViewModel: FoodCaptureViewModel by viewModels() // add FoodCaptureViewModel
-       /* private val authData:AuthData by lazy {
+    /* private val authData:AuthData by lazy {
 
             AuthData(bundle?.getString("token")?:"", bundle?.getString("accountID")?:"")
         }*/

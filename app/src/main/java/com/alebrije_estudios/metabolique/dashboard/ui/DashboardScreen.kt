@@ -1,5 +1,6 @@
 package com.alebrije_estudios.metabolique.dashboard.ui
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -169,7 +170,7 @@ fun GridItem(
     percentageMax: Float,
     //color: Color = Color.Green,
     @DrawableRes painterID: Int,
-    modifier: Modifier = Modifier,
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     onClicked: () -> Unit
 ) {
     var percentage: Float by remember { mutableFloatStateOf(0f) }

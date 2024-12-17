@@ -8,7 +8,7 @@ data class AccountData(
     @SerializedName("email") val email:String,
     @SerializedName("birthdate") val birthdate: String,
     @SerializedName("sex") val gender: String,
-    @SerializedName("stature") val name: Int,
+    @SerializedName("stature") val stature: Int,
     @SerializedName("weight") val weight: Int,
     @SerializedName("protocolToFollow") val protocolToFollow:String
 )

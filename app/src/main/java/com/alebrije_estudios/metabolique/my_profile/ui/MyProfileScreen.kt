@@ -29,6 +29,7 @@ import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
@@ -174,6 +175,9 @@ fun MyProfileScreen(
                 }
                 ButtonDelete(){
                     viewModel.showDialogDeleteAccount()
+                }
+                LaunchedEffect(key1 = "MyProfile") {
+                    viewModel.getAccuntData(authData!!)
                 }
             }
             DialogConfirmDeleteAccount(showDialogDeleteAccount,onDismissRequest = {viewModel.hiddenDialogDeleteAccount()}) {

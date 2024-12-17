@@ -127,4 +127,8 @@
     <string name="text_opcional_difficulty2">A very slight problem</string>
     <string name="text_opcional_difficulty3">Something of a problem</string>
     <string name="text_opcional_difficulty4">A big problem</string>
+    <string name="label_search_food">Search Food</string>
+    <string name="button_add_image">Add Image</string>
+    <string name="label_name_food">Food</string>
+    <string name="label_level_satisfatory">Level of Satisfatory</string>
 </resources>

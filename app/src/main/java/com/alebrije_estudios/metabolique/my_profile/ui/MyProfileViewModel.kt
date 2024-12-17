@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
+import com.alebrije_estudios.metabolique.my_profile.domain.GetProfileUseCase
 import com.alebrije_estudios.metabolique.register_account.domain.RegisterAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 @HiltViewModel
-class MyProfileViewModel @Inject constructor(private val registerAccountUseCase: RegisterAccountUseCase): ViewModel() {
+class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetProfileUseCase,private val registerAccountUseCase: RegisterAccountUseCase): ViewModel() {
     val weights: List<String> = listOf("40")
     private val _isEnabled:MutableLiveData<Boolean> = MutableLiveData()
     val isEnabled: LiveData<Boolean> = _isEnabled
@@ -28,7 +29,7 @@ class MyProfileViewModel @Inject constructor(private val registerAccountUseCase:
     private val _protocol:MutableLiveData<String> = MutableLiveData()
     val protocol: LiveData<String> = _protocol
     val protocols: MutableList<String> = mutableListOf("Ninguno")
-    val statures:MutableList<String> = mutableListOf("1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0", "2.1", "2.2")
+    val statures:MutableList<String> = mutableListOf("140", "150", "160", "170", "180", "190", "200", "210", "220")
     private val _showMessageDialog:MutableLiveData<Boolean> = MutableLiveData()
     val showMessageDialog: LiveData<Boolean> = _showMessageDialog
     private val _message:MutableLiveData<String> = MutableLiveData()
@@ -49,7 +50,7 @@ class MyProfileViewModel @Inject constructor(private val registerAccountUseCase:
         isLoading(true)
         viewModelScope.launch {
             try{
-            val auth:AuthData? = registerAccountUseCase(
+            val auth = registerAccountUseCase(
             UserModel(
                 name = name,
                 lastName = "",
@@ -100,5 +101,18 @@ class MyProfileViewModel @Inject constructor(private val registerAccountUseCase:
             //deleteUserUseCase(authData)
         }
         //navController.navigate(Screen.Login.route)
+    }
+    fun getAccuntData(authData: AuthData) {
+        viewModelScope.launch {
+            val user = getProfileUseCase(authData)
+            if (user != null) {
+                _stature.value =  user.stature.toFloat()
+                _weight.value = user.weight.toFloat()
+                _protocol.value = user.protocolToFollow
+                _gender.value = user.gender
+                _dateBirth.value =  LocalDate.parse(user.birthdate)
+
+            }
+        }
     }
 }

@@ -2,12 +2,8 @@ package com.alebrije_estudios.metabolique.feed.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,14 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
@@ -58,7 +48,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alebrije_estudios.metabolique.R
 import com.alebrije_estudios.metabolique.exercise.ui.AddButton
-import com.alebrije_estudios.metabolique.exercise.ui.TitleView
 import com.alebrije_estudios.metabolique.exercise.ui.translate
 import com.alebrije_estudios.metabolique.navegation.Screen
 import com.alebrije_estudios.metabolique.ui.NonLazyVerticalGrid
@@ -70,17 +59,10 @@ import com.alebrije_estudios.metabolique.ui.theme.RedColor
 import com.alebrije_estudios.metabolique.ui.theme.TextColor
 import com.alebrije_estudios.metabolique.ui.theme.Typography
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
-import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottomAxis
-import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStartAxis
-import com.patrykandpatrick.vico.compose.cartesian.decoration.rememberHorizontalLine
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberColumnCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
-import com.patrykandpatrick.vico.core.cartesian.data.CartesianValueFormatter
 import com.patrykandpatrick.vico.core.cartesian.data.columnSeries
-import com.patrykandpatrick.vico.core.common.component.LineComponent
-import com.patrykandpatrick.vico.core.common.component.TextComponent
-import com.patrykandpatrick.vico.core.common.data.ExtraStore
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -168,31 +150,22 @@ fun GraphicBars(title: String, data: Map<String,Number>) {
                 )
                 Spacer(modifier = Modifier.size(16.dp))
                 val modelProducer = remember { CartesianChartModelProducer() }
-                val labelListKey = ExtraStore.Key<List<String>>()
+               // val labelListKey = ExtraStore.Key<List<String>>()
                 val columnCartesianLayer = rememberColumnCartesianLayer(
                     //dataLabel = TextComponent()
                 )
-
+                //TODO: Corregir las graficas de barras, fallo debido a una actualizacion
 
                 LaunchedEffect(Unit) { modelProducer.runTransaction {
                     columnSeries { series(
                         y=data.values
                     ) }
-                    extras {
-                        it[labelListKey] = data.keys.toList()
-                    }
-                    CartesianValueFormatter { x, chartValues, _ -> chartValues.model.extraStore[labelListKey][x.toInt()] }
                 }
                 }
 
                 CartesianChartHost(
                     rememberCartesianChart(
                         columnCartesianLayer,
-                        startAxis = rememberStartAxis(),
-                        bottomAxis = rememberBottomAxis(
-                            titleComponent = TextComponent()
-                        ),
-                        decorations = listOf(rememberHorizontalLine(y = {10.0}, LineComponent(1,0.5f,)))
 //                    marker = rememberDefaultCartesianMarker(label =  )
                     ),
                     modelProducer,
