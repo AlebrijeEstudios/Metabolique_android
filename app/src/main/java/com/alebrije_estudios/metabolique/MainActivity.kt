@@ -13,26 +13,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
@@ -52,11 +47,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.alebrije_estudios.metabolique.login.ui.HeaderLogo
-import com.alebrije_estudios.metabolique.ui.theme.BackgroundColor
-import com.google.android.gms.maps.model.Circle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlin.coroutines.coroutineContext
 import kotlin.math.absoluteValue
 
 const val EMAIL = "ayuda@vidasana.com"
@@ -72,13 +63,14 @@ class MainActivity : ComponentActivity() {
             val newIntent = Intent(this, DashboardActivity::class.java)
             startActivity(newIntent)
             finish()
+            return
         }
         val intent = Intent(this, LoginActivity::class.java)
         var show = false
         enableEdgeToEdge()
         setContent {
             localeSelection(LocalContext.current, Locale("es").toLanguageTag())
-            window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
+            //window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
             Scaffold(Modifier.fillMaxSize(), floatingActionButton = {
                 FloatingActionButton(onClick = {
                     startActivity(intent)
@@ -86,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 },
                     shape = CircleShape
                 ) {
-                    Icon(imageVector = Icons.Default.ArrowForwardIos, contentDescription = "")
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos, contentDescription = "")
                 }
             }) { innerPadding ->
                 Column(
@@ -166,6 +158,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 fun calculateCurrentOffsetForPage(page: Int, currentPage: Int, currentPageOffset: Float): Float {
     return (currentPage - page) + currentPageOffset

@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.sp
 import com.alebrije_estudios.metabolique.R
 import com.alebrije_estudios.metabolique.food_capture.ui.TimePickerDialog
 import com.alebrije_estudios.metabolique.food_capture.ui.toFormat12
+import com.alebrije_estudios.metabolique.library.ERROR_ANY
+import com.alebrije_estudios.metabolique.library.ErrorType
 import com.alebrije_estudios.metabolique.ui.theme.DefaultColor
 import com.alebrije_estudios.metabolique.ui.theme.LabelColor
 import com.alebrije_estudios.metabolique.ui.theme.Lexend
@@ -81,6 +83,7 @@ fun DefaultTextField(
     imeAction: ImeAction = ImeAction.Next,
     isError: Boolean = false,
     suffix: @Composable () -> Unit = {},
+    supportingText:  @Composable () -> Unit = {},
     maxLines: Int = 1,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -110,6 +113,7 @@ fun DefaultTextField(
         trailingIcon = trailingIcon,
         singleLine = maxLines == 1,
         visualTransformation = visualTransformation,
+        supportingText = supportingText,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         maxLines = maxLines,
         modifier = modifier
@@ -468,6 +472,23 @@ fun DefaultDialog(show: Boolean, title: String, message: String, onDismissReques
             ) }
         )
 }
+@Composable
+fun DefaultDialogError(show: Boolean, title: String, error: ErrorType, onDismissRequest:() -> Unit) {
+    if (show)
+        AlertDialog(
+            onDismissRequest = { onDismissRequest()},
+            confirmButton = { DefaultButton(label = "Ok",onClicked = {onDismissRequest() })},
+            //title = { Text(text = title) },
+            text = { Text(
+                text = error.ERROR_ANY(),
+                fontSize = 15.sp,
+                fontFamily = Lexend,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) }
+        )
+}
+
 
 @Preview
 @Composable

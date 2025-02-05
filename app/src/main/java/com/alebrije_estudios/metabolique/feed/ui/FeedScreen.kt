@@ -149,18 +149,23 @@ fun GraphicBars(title: String, data: Map<String,Number>) {
                     style = Typography.titleLarge
                 )
                 Spacer(modifier = Modifier.size(16.dp))
-                val modelProducer = remember { CartesianChartModelProducer() }
-               // val labelListKey = ExtraStore.Key<List<String>>()
+                val modelProducer = remember { CartesianChartModelProducer(
+
+                ) }
+                //val xToDateMapKey:ExtraStore.Key<Map<Number,LocalDate>> = ExtraStore.Key()
+               // val xToDates = data.keys.associateBy { it.toEpochDay().toFloat() }
                 val columnCartesianLayer = rememberColumnCartesianLayer(
                     //dataLabel = TextComponent()
                 )
                 //TODO: Corregir las graficas de barras, fallo debido a una actualizacion
 
                 LaunchedEffect(Unit) { modelProducer.runTransaction {
-                    columnSeries { series(
-                        y=data.values
-                    ) }
+                    //columnSeries { series(data.values) }
+                    //extras { it[labelListKey] = data.keys.toList() }
+                    columnSeries { series(data.values) }
+                    //updateExtras  { it[xToDateMapKey] = xToDates }
                 }
+
                 }
 
                 CartesianChartHost(
@@ -175,6 +180,7 @@ fun GraphicBars(title: String, data: Map<String,Number>) {
         }
     }
 }
+
 
 @Composable
 fun MonthlyFollowUp(modifier: Modifier = Modifier, isChecked: Boolean, onClicked: () -> Unit) {

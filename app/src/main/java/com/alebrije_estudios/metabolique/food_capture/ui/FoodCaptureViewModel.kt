@@ -6,7 +6,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.libraries.places.api.model.kotlin.localTime
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -23,6 +22,8 @@ class FoodCaptureViewModel @Inject constructor(): ViewModel() {
     var date: LocalDate = LocalDate.of(2024, 7 , 1)
     private val _showModalBottomSheet:MutableLiveData<Boolean> = MutableLiveData(false)
     val showModalBottomSheet:LiveData<Boolean> = _showModalBottomSheet
+    private val _showModalBottomSheetImage:MutableLiveData<Boolean> = MutableLiveData(false)
+    val showModalBottomSheetImage:LiveData<Boolean> = _showModalBottomSheetImage
 
     fun getFoods(date: LocalDate):List<FoodCModel> {
         listFoodsC += FoodCModel("Manzana", "3/4", "Porcion", 1)
@@ -62,7 +63,12 @@ class FoodCaptureViewModel @Inject constructor(): ViewModel() {
     fun hideModalBottomSheet() {
         _showModalBottomSheet.value = false
     }
-
+    fun showModalBottomSheetImage() {
+        _showModalBottomSheetImage.value = true
+    }
+    fun hideModalBottomSheetImage() {
+        _showModalBottomSheetImage.value = false
+    }
     fun updateSrcImage(uri: Uri) {
         _srcImage.value = uri
     }

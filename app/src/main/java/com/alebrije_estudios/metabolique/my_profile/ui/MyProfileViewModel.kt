@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alebrije_estudios.metabolique.library.ERROR_ANY
+import com.alebrije_estudios.metabolique.library.ErrorType
 import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
+import com.alebrije_estudios.metabolique.my_profile.domain.DeleteUserUseCase
 import com.alebrije_estudios.metabolique.my_profile.domain.GetProfileUseCase
 import com.alebrije_estudios.metabolique.register_account.domain.RegisterAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +17,15 @@ import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 @HiltViewModel
-class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetProfileUseCase,private val registerAccountUseCase: RegisterAccountUseCase): ViewModel() {
+class MyProfileViewModel @Inject constructor(
+    private val getProfileUseCase: GetProfileUseCase,
+    private val registerAccountUseCase: RegisterAccountUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase
+): ViewModel() {
+    private val _name:MutableLiveData<String> = MutableLiveData()
+    val name: LiveData<String> = _name
+    private val _email:MutableLiveData<String> = MutableLiveData()
+    val email: LiveData<String> = _email
     val weights: List<String> = listOf("40")
     private val _isEnabled:MutableLiveData<Boolean> = MutableLiveData()
     val isEnabled: LiveData<Boolean> = _isEnabled
@@ -32,8 +43,8 @@ class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetP
     val statures:MutableList<String> = mutableListOf("140", "150", "160", "170", "180", "190", "200", "210", "220")
     private val _showMessageDialog:MutableLiveData<Boolean> = MutableLiveData()
     val showMessageDialog: LiveData<Boolean> = _showMessageDialog
-    private val _message:MutableLiveData<String> = MutableLiveData()
-    val message: LiveData<String> = _message
+    private val _message:MutableLiveData<ErrorType> = MutableLiveData()
+    val message: LiveData<ErrorType> = _message
     private val _showDialogDeleteAccount:MutableLiveData<Boolean> = MutableLiveData()
     val showDialogDeleteAccount: LiveData<Boolean> = _showDialogDeleteAccount
     fun void(){
@@ -66,7 +77,8 @@ class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetP
                 doLogin(auth)
             }
             catch (e: Exception){
-                _message.value = e.message?: "Error al registrar el usuario"
+                val error:ErrorType = ErrorType.fromName(e.message ?: "")
+                _message.value = error
                 _showMessageDialog.value = true
             }
             finally {
@@ -98,9 +110,8 @@ class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetP
 
     fun deleteDataUser(authData: AuthData) {
         viewModelScope.launch {
-            //deleteUserUseCase(authData)
+            deleteUserUseCase(authData)
         }
-        //navController.navigate(Screen.Login.route)
     }
     fun getAccuntData(authData: AuthData) {
         viewModelScope.launch {
@@ -114,5 +125,12 @@ class MyProfileViewModel @Inject constructor(private val getProfileUseCase: GetP
 
             }
         }
+    }
+
+    fun setName(name: String) {
+        _name.value = name
+    }
+    fun setEmail(email: String) {
+        _email.value = email
     }
 }

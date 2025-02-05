@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
@@ -32,6 +33,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ShapeDefaults
@@ -84,10 +86,11 @@ fun FoodCaptureScreen(viewModel: FoodCaptureViewModel, date: LocalDate) {
 
     //val permissionState = rememberPermissionState(permission = android.Manifest.permission.CAMERA)
     val showModalBottomSheet by viewModel.showModalBottomSheet.observeAsState(initial = false)
+    val showModalBottomSheetImage by  viewModel.showModalBottomSheetImage.observeAsState(initial = false)
     val srcImage:Uri by  viewModel.srcImage.observeAsState(initial = Uri.EMPTY)
     val search:String by viewModel.search.observeAsState(initial = "")
     ModalAddFood(showModalBottomSheet, listOf("3","2","1","1/2","1/3","1/4","1/8" )){viewModel.hideModalBottomSheet()}
-    DialogSelectPickerMedia(false,srcImage){viewModel.updateSrcImage(it)}
+    DialogSelectPickerMedia(showModalBottomSheetImage,srcImage, {viewModel.hideModalBottomSheetImage()}){viewModel.updateSrcImage(it)}
     Column(Modifier.fillMaxWidth()) {
         HeaderDateTime(date, viewModel.time){
             viewModel.time = it
@@ -117,6 +120,7 @@ fun FoodCaptureScreen(viewModel: FoodCaptureViewModel, date: LocalDate) {
         }
         else{
             DefaultButton(label = stringResource(id = R.string.button_add_image), enabled = true, modifier = Modifier.fillMaxWidth()) {
+                viewModel.showModalBottomSheetImage()
                 //pickMedia.launch("image/*")
               /* if (permissionState.status.isGranted)
 
@@ -134,48 +138,58 @@ fun FoodCaptureScreen(viewModel: FoodCaptureViewModel, date: LocalDate) {
     }
 }
 
- @OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun DialogSelectPickerMedia(show:Boolean, srcImage: Uri, selected: (Uri) -> Unit) {
+fun DialogSelectPickerMedia(show:Boolean, srcImage: Uri,onDismissRequest: () -> Unit, selected: (Uri) -> Unit) {
     val pickMedia = rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) {uri ->
         if(uri == null) return@rememberLauncherForActivityResult
         selected(uri)
     }
     if (show)
-        Dialog(onDismissRequest = {}){
+            ModalBottomSheet(
+                onDismissRequest = {},
+                containerColor = DefaultColor,
+            ) {
             Row(
                 Modifier
                     //.shape(ShapeDefaults.ExtraLarge)
+                    .fillMaxWidth()
                     .background(color = DefaultColor, shape = ShapeDefaults.ExtraLarge)
-                    .padding(vertical = 16.dp, horizontal = 8.dp)
+                    .padding(vertical = 16.dp, horizontal = 8.dp),
+                horizontalArrangement = Arrangement.Absolute.SpaceAround
                     ) {
-                Button(
+                IconButton(
                     onClick = {},
-                    shape = ShapeDefaults.ExtraLarge,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = PrimaryColor
+                    modifier = Modifier.size(96.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = PrimaryColor,
+                        contentColor = DefaultColor
                     ),
-                    contentPadding =  PaddingValues(8.dp)
                 ){
                     Column (horizontalAlignment = Alignment.CenterHorizontally){
-                        Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = "")
-                        Text(text = stringResource(id = R.string.label_select))
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_photo_camera),
+                            modifier = Modifier.size(48.dp),
+                            contentDescription = ""
+                        )
+                        //Text(text = stringResource(id = R.string.label_select))
                     }
                 }
                 Spacer(modifier = Modifier.size(16.dp))
-                Button(
+                IconButton(
                     onClick = {},
-                    shape = ShapeDefaults.ExtraLarge,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = PrimaryColor
+                    modifier = Modifier.size(96.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = PrimaryColor,
+                        contentColor = DefaultColor
                     ),
-                    contentPadding =  PaddingValues(8.dp)
                 ){
                     Column (horizontalAlignment = Alignment.CenterHorizontally){
-                        Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = "")
-                        Text(text = stringResource(id = R.string.label_select))
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_image),
+                            modifier = Modifier.size(48.dp),
+                            contentDescription = ""
+                        )
                     }
                 }
             }

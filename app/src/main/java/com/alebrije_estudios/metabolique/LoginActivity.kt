@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.platform.LocalContext
@@ -33,7 +32,7 @@ class LoginActivity : ComponentActivity() {
             val newIntent = Intent(this, DashboardActivity::class.java)
             setContent {
                 localeSelection(LocalContext.current, Locale("es").toLanguageTag())
-                window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
+               // window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
                 MetaboliqueTheme (darkTheme = false, dynamicColor = false){
                     LoginNavigation(
                         loginViewModel = loginViewModel,
@@ -42,7 +41,7 @@ class LoginActivity : ComponentActivity() {
                         myProfileViewModel = myProfileViewModel
                     ){ auth ->
                         Log.i("Login Metabolique", auth.toString())
-                        createPreferences(auth.token.replace("Bearer ",""), auth.accountID)
+                        auth.createPreferences(getSharedPreferences("User",MODE_PRIVATE))
                         /*newIntent.putExtra("token", auth.token.replace("Bearer ",""))
                         newIntent.putExtra("accountID", auth.accountID)*/
                         startActivity(newIntent)
@@ -52,13 +51,5 @@ class LoginActivity : ComponentActivity() {
             }
         }
 
-    private fun createPreferences(token: String, accountID: String) {
-        // Create Preferences
-        val sharedPref = getSharedPreferences("User",MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            putString("token", token)
-            putString("accountID", accountID)
-            commit()
-        }
-    }
+
 }

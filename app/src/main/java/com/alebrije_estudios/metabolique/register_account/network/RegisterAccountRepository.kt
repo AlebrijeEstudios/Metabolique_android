@@ -19,7 +19,11 @@ class RegisterAccountRepository @Inject constructor(private val loginClient: Log
             if(response.body()?.auth?.token == null || response.body()?.auth?.accountID == null)
                 null
             else
-                AuthData(response.body()?.auth?.token!!, response.body()?.auth?.accountID!!)
+                AuthData(
+                    response.body()?.auth?.token!!,
+                    response.body()?.auth?.accountID!!,
+                    response.body()?.auth?.refreshToken!!
+                )
         }
     }
 }

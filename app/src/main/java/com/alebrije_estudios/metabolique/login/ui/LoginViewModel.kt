@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil.compose.AsyncImagePainter
+import com.alebrije_estudios.metabolique.library.ErrorType
 import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
 import com.alebrije_estudios.metabolique.login.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,8 +25,22 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     val message: LiveData<String> = _message
     private val _showMessageDialog: MutableLiveData<Boolean> = MutableLiveData()
     val showMessageDialog: LiveData<Boolean> = _showMessageDialog
+    private val _codeErrorEmail:MutableLiveData<ErrorType> = MutableLiveData()
+    val codeErrorEmail:LiveData<ErrorType> = _codeErrorEmail
+    private val _codeErrorPassword:MutableLiveData<ErrorType> = MutableLiveData()
+    val codeErrorPassword:LiveData<ErrorType> = _codeErrorPassword
+    private val _codeError:MutableLiveData<ErrorType> = MutableLiveData()
+    val codeError:MutableLiveData<ErrorType> = _codeError
 
-
+    fun restcodeErrorEmail(){
+        _codeErrorEmail.value = ErrorType.ERROR_OK
+    }
+    fun restcodeErrorPassword(){
+        _codeErrorPassword.value = ErrorType.ERROR_OK
+    }
+    fun restcodeError(){
+        _codeError.value = ErrorType.ERROR_OK
+    }
     fun onChangedUser(email: String, password: String) {
         _email.value = email
         _password.value = password
@@ -58,6 +72,24 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     fun hiddenMessageDialog(){
         _showMessageDialog.value = false
+    }
+
+    fun checkEmail() {
+        if(_email.value.isNullOrEmpty()){
+            _codeErrorEmail.value = ErrorType.ERROR_REQUERID
+            return
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(_email.value?:"").matches())
+            _codeErrorEmail.value = ErrorType.ERROR_EMAIL_FORMAT
+    }
+
+    fun checkPassword() {
+        if(_password.value.isNullOrEmpty()){
+            _codeErrorPassword.value = ErrorType.ERROR_REQUERID
+            return
+        }
+        if(_password.value?.length!! < 8)
+            _codeErrorPassword.value = ErrorType.ERROR_PASSWORD_LENGTH
     }
 
 }

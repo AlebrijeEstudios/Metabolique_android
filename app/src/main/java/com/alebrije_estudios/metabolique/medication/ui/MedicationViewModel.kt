@@ -21,7 +21,7 @@ class MedicationViewModel @Inject constructor(
     private val addMedicationUseCase: AddMedicationUseCase,
     private val updateMedicationUseCase: UpdateMedicationUseCase,
     private val deleteMedicationUseCase: DeleteMedicationUseCase,
-    //private val getMedicationAftereffectsUseCase: GetMedicationAftereffectsUseCase,
+    //private val getMedicationAftereffectsUseCase: GetMedicationAftereffectsUseCase
 ) : ViewModel() {
     private val _showAddMedication: MutableLiveData<Boolean> = MutableLiveData()
     val showAddMedication: LiveData<Boolean> = _showAddMedication

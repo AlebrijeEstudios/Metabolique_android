@@ -120,14 +120,14 @@ fun DashboardNavigation(
                     )
                 }
                 composable(Screen.MyProfile.route) { backStackEntry ->
-                    viewModel.showViews(TopBarShow.HIDE_ALL)
+                    viewModel.showViews(TopBarShow.SHOW_BACK_BUTTON)
                     MyProfileScreen(
                         viewModel = myProfileViewModel,
-                        name = backStackEntry.arguments?.getString("name") ?: "",
-                        email = backStackEntry.arguments?.getString("email") ?: "",
+                        //name = backStackEntry.arguments?.getString("name") ?: "",
+                        //email = backStackEntry.arguments?.getString("email") ?: "",
                         password = registerAccountViewModel.password.value ?: "",
                         isEditUser = true,
-                        navController = navController,
+                        //navController = navController,
                         isLoading = {},
                         doLogout = { doLogout() },
                         authData = authData

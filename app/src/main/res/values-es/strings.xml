@@ -137,4 +137,10 @@
     <string name="button_add_image">AÑADIR FOTO DEL PLATILLO</string>
     <string name="label_name_food">Comida</string>
     <string name="label_level_satisfatory">Nivel de Saciedad</string>
+    <string name="error_email">el email no es valido</string>
+    <string name="error_password_length">la contraseña debe tener mínimo 8 caracteres</string>
+    <string name="error_password_format">la contraseña debe tener caracteres alfanuméricos, números, letras, minúsculas y mayúsculas</string>
+    <string name="error_unknown">error desconocido</string>
+    <string name="error_requerid">%s es requerido</string>
+    <string name="error_any">Ha Ocurrido Un Error Codigo Error: %d</string>
 </resources>

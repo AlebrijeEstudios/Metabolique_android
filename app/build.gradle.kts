@@ -1,9 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     //DaggerHilt
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -20,7 +22,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
         //Configure Languages
         resourceConfigurations.plus(listOf("en_US","es"))
 
@@ -40,19 +42,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
         //Configure Date
         isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -82,7 +84,7 @@ dependencies {
     //DaggerHilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
-    implementation(libs.places)
+    //implementation(libs.places)
     kapt(libs.hilt.android.compiler)
     //Navigation
     implementation(libs.androidx.navigation.compose)

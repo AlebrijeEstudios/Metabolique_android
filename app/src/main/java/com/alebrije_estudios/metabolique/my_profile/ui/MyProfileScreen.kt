@@ -1,7 +1,6 @@
 package com.alebrije_estudios.metabolique.my_profile.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,15 +44,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.navigation.NavController
 import com.alebrije_estudios.metabolique.R
 import com.alebrije_estudios.metabolique.ui.DefaultButton
 import com.alebrije_estudios.metabolique.ui.DefaultDropdownMenu
 import com.alebrije_estudios.metabolique.ui.DefaultTextField
 import com.alebrije_estudios.metabolique.feed.ui.getDayMonthValueYear
+import com.alebrije_estudios.metabolique.library.ErrorType
 import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
 import com.alebrije_estudios.metabolique.login.ui.HeaderLogo
 import com.alebrije_estudios.metabolique.ui.DefaultDialog
+import com.alebrije_estudios.metabolique.ui.DefaultDialogError
 import com.alebrije_estudios.metabolique.ui.theme.DefaultColor
 import com.alebrije_estudios.metabolique.ui.theme.LabelColor
 import com.alebrije_estudios.metabolique.ui.theme.PrimaryColor
@@ -84,16 +84,16 @@ class SelectableNow : SelectableDates {
 @Composable
 fun MyProfileScreen(
     viewModel: MyProfileViewModel,
-    name: String,
-    email: String,
     password: String,
     isEditUser: Boolean = false,
-    navController: NavController,
+    //navController: NavController,
     isLoading:(Boolean) -> Unit,
     doLogout:()-> Unit= {},
     authData: AuthData? = null,
     doLogin:(AuthData)-> Unit
 ) {
+    val name by viewModel.name.observeAsState("")
+    val email by viewModel.email.observeAsState("")
     val isEnabled by viewModel.isEnabled.observeAsState(false)
     val gender: String by viewModel.gender.observeAsState("")
     val dateBirth: LocalDate? by viewModel.dateBirth.observeAsState(null)
@@ -101,7 +101,7 @@ fun MyProfileScreen(
     val stature: Float by viewModel.stature.observeAsState(0f)
     val protocol: String by viewModel.protocol.observeAsState("")
     val showMessageDialog: Boolean by viewModel.showMessageDialog.observeAsState(false)
-    val message: String by viewModel.message.observeAsState("")
+    val message: ErrorType by viewModel.message.observeAsState(ErrorType.ERROR_OK)
     val showDialogDeleteAccount by viewModel.showDialogDeleteAccount.observeAsState(false )
     Box(
         Modifier
@@ -170,10 +170,11 @@ fun MyProfileScreen(
                 }
             }
             if(isEditUser){
-                ButtonLogout(){
+
+                ButtonLogout{
                     doLogout()
                 }
-                ButtonDelete(){
+                ButtonDelete{
                     viewModel.showDialogDeleteAccount()
                 }
                 LaunchedEffect(key1 = "MyProfile") {
@@ -184,7 +185,7 @@ fun MyProfileScreen(
                 viewModel.deleteDataUser(authData!!)
                 doLogout()
             }
-            DefaultDialog(show = showMessageDialog, title = "Error", message = message) {
+            DefaultDialogError(show = showMessageDialog, title = "Error", error = message) {
                 viewModel.hiddenDialogMessage()
             }
         }

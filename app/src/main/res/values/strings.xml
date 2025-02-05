@@ -131,4 +131,10 @@
     <string name="button_add_image">Add Image</string>
     <string name="label_name_food">Food</string>
     <string name="label_level_satisfatory">Level of Satisfatory</string>
+    <string name="error_email">the email is invalid</string>
+    <string name="error_password_length">The password must be at least 8 characters long</string>
+    <string name="error_password_format">The password must have alphanumeric characters, numbers, letters, lowercase, and uppercase</string>
+    <string name="error_unknown">unknown error</string>
+    <string name="error_requerid">%s field is required</string>
+    <string name="error_any">An Error Has Occurred Code Error: %d</string>
 </resources>

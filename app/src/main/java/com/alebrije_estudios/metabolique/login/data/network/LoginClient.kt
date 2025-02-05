@@ -4,6 +4,7 @@ package com.alebrije_estudios.metabolique.login.data.network
 import com.alebrije_estudios.metabolique.core.di.API_KEY
 import com.alebrije_estudios.metabolique.login.data.network.model.AccountResponse
 import com.alebrije_estudios.metabolique.login.data.network.model.AccountStateResponse
+import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
 import com.alebrije_estudios.metabolique.login.data.network.model.Date
 import com.alebrije_estudios.metabolique.login.data.network.model.LoginResponse
 import com.alebrije_estudios.metabolique.login.data.network.model.LoginData
@@ -52,5 +53,10 @@ interface LoginClient {
 
     @Headers("Metabolique_API_KEY: $API_KEY")
     @DELETE("/accounts/account-profile/{id}")
-    suspend fun deleteAccount(@Path("id") id:String): Response<AccountStateResponse>
+    suspend fun deleteAccount(@Path("id") id:String, @Header("Authorization") token: String): Response<AccountStateResponse>
+
+    @Headers("Metabolique_API_KEY: $API_KEY")
+    @POST("auth/refresh-token")
+    suspend fun refreshToken(@Body authData: AuthData): Response<LoginResponse>
+
 }

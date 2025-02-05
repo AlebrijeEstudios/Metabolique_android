@@ -1,15 +1,13 @@
 package com.alebrije_estudios.metabolique
 
 import android.content.Intent
-import android.graphics.Color
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.intl.Locale
 import com.alebrije_estudios.metabolique.dashboard.ui.DashboardViewModel
@@ -18,12 +16,10 @@ import com.alebrije_estudios.metabolique.feed.ui.FeedViewModel
 import com.alebrije_estudios.metabolique.food_capture.ui.FoodCaptureViewModel
 import com.alebrije_estudios.metabolique.habits.ui.HabitViewModel
 import com.alebrije_estudios.metabolique.login.data.network.model.AuthData
-import com.alebrije_estudios.metabolique.login.ui.LoginViewModel
 import com.alebrije_estudios.metabolique.medication.ui.MedicationViewModel
 import com.alebrije_estudios.metabolique.my_profile.ui.MyProfileViewModel
 import com.alebrije_estudios.metabolique.navegation.ui.DashboardNavigation
 import com.alebrije_estudios.metabolique.navegation.ui.MainViewModel
-import com.alebrije_estudios.metabolique.recobery_account.ui.RecoveryAccountViewModel
 import com.alebrije_estudios.metabolique.register_account.ui.RegisterAccountViewModel
 import com.alebrije_estudios.metabolique.ui.theme.MetaboliqueTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,15 +46,16 @@ class DashboardActivity : ComponentActivity() {
             // get a Preferences
             val newIntent = Intent(this, LoginActivity::class.java)
             val sharedPref = getSharedPreferences("User",MODE_PRIVATE)
-            if(!sharedPref.getString("token", "")?.contains(".")!!){
+            val authData = AuthData.createAuthData(sharedPref)
+            if(authData == null){
                 Log.i("token", sharedPref.getString("token", "")?:"")
                 startActivity(newIntent)
                 finish()
+                return
             }
-            val authData = AuthData(sharedPref.getString("token", "")?:"", sharedPref.getString("accountID", "")?:"")
             setContent {
                 localeSelection(LocalContext.current, Locale("es").toLanguageTag())
-                window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
+                //window.navigationBarColor = if(isSystemInDarkTheme()) Color.BLACK else Color.TRANSPARENT
                 MetaboliqueTheme (darkTheme = false, dynamicColor = false){
                     DashboardNavigation(
                         viewModel = mainViewModel,

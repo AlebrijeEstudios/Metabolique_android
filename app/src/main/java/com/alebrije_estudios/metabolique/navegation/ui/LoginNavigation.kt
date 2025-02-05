@@ -73,12 +73,14 @@ fun LoginNavigation(
                         )
                     }
                     composable(Screen.MyProfile.route) { backStackEntry ->
+                        myProfileViewModel.setName(backStackEntry.arguments?.getString("name") ?: "")
+                        myProfileViewModel.setEmail(backStackEntry.arguments?.getString("email") ?: "")
                         MyProfileScreen(
                             viewModel = myProfileViewModel,
-                            name = backStackEntry.arguments?.getString("name") ?: "",
-                            email = backStackEntry.arguments?.getString("email") ?: "",
+                            //name = backStackEntry.arguments?.getString("name") ?: "",
+                            //email = backStackEntry.arguments?.getString("email") ?: "",
                             password = registerAccountViewModel.password.value ?: "",
-                            navController = navController,
+                            //navController = navController,
                             isLoading = {isLoading = it}
                         ) {
                             doLogin(it)
