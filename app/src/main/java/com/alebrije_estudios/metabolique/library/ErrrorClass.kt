@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.alebrije_estudios.metabolique.library
+=======
+package com.alebrije_estudios.metabolique.gestion
+>>>>>>> 31ca231b9f948be85465eeaa1d10e93d82e796b0
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -10,6 +14,7 @@ enum class ErrorType(val code: Int) {
     ERROR_REQUERID(1000),
     ERROR_EMAIL_FORMAT(1001),
     ERROR_PASSWORD_LENGTH(1002),
+<<<<<<< HEAD
     ERROR_PASSWORD_FORMAT(1003);
     companion object {
         fun fromCode(code: Int): ErrorType {
@@ -27,6 +32,10 @@ enum class ErrorType(val code: Int) {
             }
         }
     }
+=======
+    ERROR_PASSWORD_FORMAT(1003),
+
+>>>>>>> 31ca231b9f948be85465eeaa1d10e93d82e796b0
 }
 @Composable
 fun ErrorType.getErrorMessage(name: String = ""): String {
@@ -41,4 +50,8 @@ fun ErrorType.getErrorMessage(name: String = ""): String {
     }
 }
 @Composable
+<<<<<<< HEAD
+=======
+@
+>>>>>>> 31ca231b9f948be85465eeaa1d10e93d82e796b0
 fun ErrorType.ERROR_ANY():String = stringResource(id = R.string.error_any).format(this.code)
