@@ -57,8 +57,6 @@ import com.alebrije_estudios.metabolique.ui.theme.TextColor
 //    }
 //}
 
-
-
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navController: NavController,isLoading:(Boolean)->Unit, doLogin: (AuthData) -> Unit){
     val email: String by loginViewModel.email.observeAsState("")

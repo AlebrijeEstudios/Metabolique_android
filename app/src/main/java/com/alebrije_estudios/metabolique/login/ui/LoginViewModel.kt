@@ -53,6 +53,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     fun login(isLoading:(Boolean) -> Unit,doLogin:(AuthData) -> Unit) {
         isLoading(true)
+        //Esto debo descomentarlo
         viewModelScope.launch {
             try{
                 val auth = loginUseCase(_email.value?:"", _password.value?:"")
